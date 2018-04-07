@@ -29,18 +29,25 @@ var actions = {
         spotify.search({
             type: "track",
             query: name,
-            limit: 1
+            limit: 10
         },function(err,data){
             if(err){
                 console.log("Error Occured: "+err)
             }
-            var path = data.tracks.items[0]
+            var index = 0;
+            for(var l=0; l<data.tracks.items.length;l++){
+                if(data.tracks.items[l].name == name){
+                    index=l;
+                    
+                }
+            }
+            var path = data.tracks.items[index];
             //console.log(JSON.stringify(data,null,2))
             console.log("Song Name: "+path.name + "\n Album Name: "+path.album.name+"\n Artist(s): ");
             for(var i=0; i<path.artists.length;i++){
                 console.log(path.artists[i].name)
             }
-            console.log("Link to song: "+path.external_urls.spotify);
+            console.log("Link to song: "+path.preview_url);
         })
     },
     movie_this: function(name){
