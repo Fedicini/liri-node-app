@@ -64,12 +64,13 @@ var actions = {
         })
     },
     do_what_it_says:function(){
-        fs.readFile('movies.txt', 'utf8',function(err,data){
+        fs.readFile('random.txt', 'utf8',function(err,data){
             if(err){
                 return console.error(err)
             }
-            console.log(data);
-            console.log(data.split(','))
+            var strArr = data.split(',')
+            var newCommand = strArr[0].replace(/-/g,"_");
+            actions[newCommand](strArr[1])
         })
     }
 }
